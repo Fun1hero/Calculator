@@ -11,60 +11,31 @@ import UIKit
 class ViewController: UIViewController {
     var expr : String = ""
     var answ : String = ""
+    
+    var flagClear : Bool = false
     @IBOutlet weak var displayLbl: UILabel!
     @IBOutlet weak var ClearBtn: UIButton!
     
     @IBAction func ActionBtn(_ sender: UIButton) {
-        if displayLbl.text == "0" {
-            //displayLbl.text = ""
-            switch sender.tag {
-                case 0: expr += "0"
-                    break
-                case 1: expr += "1"
-                    break
-                case 2: expr += "2"
-                    break
-                case 3: expr += "3"
-                    break
-                case 4: expr += "4"
-                    break
-                case 5: expr += "5"
-                    break
-                case 6: expr += "6"
-                    break
-                case 7: expr += "7"
-                    break
-                case 8: expr += "8"
-                    break
-                case 9: expr += "9"
-                    break
-                case 10: expr += "("
-                    break
-                case 11: expr += ")"
-                    break
-                case 12: expr += "" //---------------+/-
-                    break
-                case 13: expr += "."
-                    break
-                case 14: expr = "0" //---------------Clear
-                    break
-                case 15: expr += "" //---------------Power
-                    break
-                case 16: expr += "+"
-                    break
-                case 17: expr += "-"
-                    break
-                case 18: expr += "*"
-                    break
-                case 19: expr += "/"
-                    break
-                case 20: answ = String(calculating(equation: expr)) //---------------Enter
-                    break
-                default: expr += ""
+        //flagClear = false
+            if sender.tag == 21 {
+                if expr != "0" || expr != "" {
+                    answ = String(calculating(equation: expr))
+                    expr = answ
+                    answ = ""
+                }
             }
-        } else {
-            displayLbl.text = "0"
-        }
+            else if sender.tag == 15 {
+                expr = "0"
+                flagClear = true
+            }
+            else if flagClear {
+                    flagClear = false
+                    expr = (sender.titleLabel?.text)!
+            }
+            else {
+                expr += (sender.titleLabel?.text)!
+            }
         if answ == "" {
             displayLbl.text = expr
         } else {
